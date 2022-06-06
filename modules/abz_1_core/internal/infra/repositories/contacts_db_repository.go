@@ -23,7 +23,7 @@ func (repo ContactsDbRepository) AddAll(dto interfaces.ContactDTO) error {
 	panic("implement me")
 }
 
-func (repo ContactsDbRepository) GetByPhone(s string) error {
+func (repo ContactsDbRepository) GetByPhone(s string) (interfaces.ContactDTO, error) {
 	//TODO implement me
 	panic("implement me")
 }

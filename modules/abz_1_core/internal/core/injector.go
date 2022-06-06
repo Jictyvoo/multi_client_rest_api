@@ -1,4 +1,4 @@
-package utils
+package core
 
 import (
 	"github.com/wrapped-owls/goremy-di/remy"

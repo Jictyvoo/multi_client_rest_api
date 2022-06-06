@@ -8,6 +8,6 @@ type (
 	ContactsRepository interface {
 		Add(ContactDTO) error
 		AddAll(ContactDTO) error
-		GetByPhone(string) error
+		GetByPhone(string) (ContactDTO, error)
 	}
 )
