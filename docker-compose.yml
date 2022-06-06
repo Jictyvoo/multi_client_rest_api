@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  abz_1_database:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: iam_a_master
+      MYSQL_DATABASE: abz_1_db
+      MYSQL_USER: user_abz
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_HOST: %
+    ports:
+      - "6603:3306"
+    command: --default-authentication-plugin=mysql_native_password
+
+  xyc_2_database:
+    image: postgres:latest
+    restart: unless-stopped
+    ports:
+      - "4323:5432"
+    environment:
+      POSTGRES_PASSWORD: get_a_access
+      POSTGRES_USER: user_xyc

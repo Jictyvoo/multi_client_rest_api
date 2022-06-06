@@ -1,0 +1,5 @@
+module github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core
+
+go 1.18
+
+require github.com/wrapped-owls/goremy-di/remy v1.1.0

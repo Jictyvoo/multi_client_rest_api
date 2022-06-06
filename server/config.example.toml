@@ -1,0 +1,15 @@
+[databases]
+
+[databases.abz_1]
+host = "abz_1_database"
+port = 3306
+database_name = 'macapa_abz_1'
+username = 'test_user'
+user_password = 'not_a_real_password'
+
+[databases.xyc_2]
+host = "xyc_2_database"
+port = 5432
+database_name = 'varejao_xyc_2'
+username = 'test_user'
+user_password = 'not_a_real_password'
