@@ -1,4 +1,4 @@
-package utils
+package corerrs
 
 import "errors"
 

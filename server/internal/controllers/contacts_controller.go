@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/jictyvoo/multi_client_rest_api/server/internal/dtos"
-	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/dtos"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/services"
 	"github.com/wrapped-owls/goremy-di/remy"
 )
 
@@ -28,7 +28,7 @@ func (ctrl ContactsController) Insert(c *fiber.Ctx) error {
 
 	// Check if the key in context
 	serviceName := c.Locals("service-name", "").(string)
-	service := remy.Get[utils.ContactsServiceFacade](ctrl.injector, serviceName)
+	service := remy.Get[services.ContactsServiceFacade](ctrl.injector, serviceName)
 	if service == nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(
 			fiber.Map{"content": "Unable to access service for given client"},

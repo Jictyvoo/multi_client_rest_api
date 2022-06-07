@@ -2,9 +2,12 @@ module github.com/jictyvoo/multi_client_rest_api/server
 
 go 1.18
 
+replace github.com/jictyvoo/multi_client_rest_api/services/apicontracts => ../services/apicontracts
+
 require (
 	github.com/gofiber/fiber/v2 v2.34.0
 	github.com/gofiber/jwt/v3 v3.2.12
+	github.com/jictyvoo/multi_client_rest_api/services/apicontracts v0.0.0
 	github.com/pelletier/go-toml/v2 v2.0.1
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.12.0
