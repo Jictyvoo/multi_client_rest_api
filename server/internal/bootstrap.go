@@ -10,6 +10,7 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
 	"github.com/jictyvoo/multi_client_rest_api/services/authcore"
 	"github.com/jictyvoo/multi_client_rest_api/services/authcore/authware"
+	"github.com/wrapped-owls/goremy-di/remy"
 	"log"
 	"runtime"
 )
@@ -25,12 +26,18 @@ func CatchStackTrace() []byte {
 	return buf[:bytesWritten]
 }
 
+func tempRuntimeRegister(injector remy.Injector) {
+	_ = authcore.CreateCustomer(injector, "macapa", utils.ServiceABZ1, "vatapa")
+	_ = authcore.CreateCustomer(injector, "varejao", utils.ServiceXYC2, "caruru")
+}
+
 func SetupApp(data config.AppConfig, closeServerChan chan string) *fiber.App {
 	// start bind the injections
 	injector, err := bindInjections(data)
 	if err != nil {
 		log.Fatalln(err)
 	}
+	tempRuntimeRegister(injector)
 
 	app := fiber.New(fiber.Config{
 		Prefork:      false,
@@ -54,7 +61,7 @@ func SetupApp(data config.AppConfig, closeServerChan chan string) *fiber.App {
 		SigningKey:          []byte(data.SymmetricKey),
 		KeyRefreshInterval:  nil,
 		KeyRefreshRateLimit: nil,
-		SigningMethod:       jwtware.ES256,
+		SigningMethod:       jwtware.HS256,
 		ContextKey:          jwtContextKey,
 		TokenLookup:         "header:Authorization",
 		AuthScheme:          "Bearer",
