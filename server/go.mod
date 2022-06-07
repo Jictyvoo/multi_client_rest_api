@@ -13,7 +13,7 @@ require (
 	github.com/gofiber/jwt/v3 v3.2.12
 	github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core v0.0.0-00010101000000-000000000000
 	github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core v0.0.0-00010101000000-000000000000
-	github.com/jictyvoo/multi_client_rest_api/services/apicontracts v0.0.0
+	github.com/jictyvoo/multi_client_rest_api/services/apicontracts v0.0.0-00010101000000-000000000000
 	github.com/pelletier/go-toml/v2 v2.0.1
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.12.0
@@ -23,11 +23,13 @@ require (
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.1 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
+	github.com/lib/pq v1.10.6 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/nyaruka/phonenumbers v1.0.75 // indirect
