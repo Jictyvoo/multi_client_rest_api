@@ -18,7 +18,7 @@ services:
     image: postgres:latest
     restart: unless-stopped
     ports:
-      - "4323:5432"
+      - "4523:5432"
     environment:
       POSTGRES_PASSWORD: get_a_access
       POSTGRES_USER: user_xyc
