@@ -89,3 +89,7 @@ func TestContactsService_Add(t *testing.T) {
 		t.Errorf("Expected 1 contact, got %d", len(mockList))
 	}
 }
+
+func TestContactsService_AddAll(t *testing.T) {
+	// TODO: Implement this test
+}
