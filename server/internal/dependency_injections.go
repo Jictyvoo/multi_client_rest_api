@@ -8,6 +8,7 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/config"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/services"
+	"github.com/jictyvoo/multi_client_rest_api/services/authcore"
 	"github.com/wrapped-owls/goremy-di/remy"
 )
 
@@ -24,6 +25,11 @@ func bindInjections(conf config.AppConfig) (injector remy.Injector, err error) {
 	}()
 
 	injector = remy.NewInjector(remy.Config{GenerifyInterfaces: false})
+
+	remy.RegisterInstance(injector, conf.Server.SymmetricKey, "security.secret_key")
+
+	// Bind authcore service
+	authcore.BindInjections(injector)
 
 	remy.Register(
 		injector,

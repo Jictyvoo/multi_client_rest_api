@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/jictyvoo/multi_client_rest_api/services/authcore/internal/domain"
 	"github.com/jictyvoo/multi_client_rest_api/services/authcore/internal/domain/dtos"
+	"github.com/jictyvoo/multi_client_rest_api/services/authcore/internal/domain/interfaces"
 	"github.com/wrapped-owls/goremy-di/remy"
 )
 
@@ -12,7 +13,12 @@ type AuthController struct {
 }
 
 func NewAuthController(injector remy.Injector) *AuthController {
-	return &AuthController{service: domain.NewCustomerAuthService(nil, "")}
+	return &AuthController{
+		service: domain.NewCustomerAuthService(
+			remy.Get[interfaces.CustomersRepository](injector),
+			remy.Get[string](injector, "security.secret_key"),
+		),
+	}
 }
 
 func (ctrl *AuthController) Bind(router fiber.Router) {
