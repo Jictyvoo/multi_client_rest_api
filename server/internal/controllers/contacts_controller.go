@@ -92,13 +92,19 @@ func (ctrl *ContactsController) GetAll(c *fiber.Ctx) error {
 		return sendErr
 	}
 
-	if service == nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(
-			fiber.Map{"content": "Unable to access service for given client"},
-		)
+	var contactsList []apiDtos.ContactsDTO
+	contactsList, err = service.ListAll()
+
+	// TODO: Convert to presenter dto
+	dtoList := dtos.ContactsListDTO{
+		Contacts: make([]dtos.ContactsDTO, 0, len(contactsList)),
+	}
+	for _, contact := range contactsList {
+		dtoList.Contacts = append(dtoList.Contacts, dtos.ContactsDTO{
+			FullName:  contact.Name(),
+			Cellphone: contact.Phone(),
+		})
 	}
 
-	// TODO: Implement me
-
-	return nil
+	return c.JSON(dtoList)
 }

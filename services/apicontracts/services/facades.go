@@ -8,5 +8,5 @@ import (
 // manipulate contacts
 type ContactsServiceFacade interface {
 	Add(contacts []dtos.ContactsDTO) error
-	// TODO: ListAll() ([]dtos.ContactsDTO, error)
+	ListAll() ([]dtos.ContactsDTO, error)
 }

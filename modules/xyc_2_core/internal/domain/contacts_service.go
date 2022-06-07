@@ -69,3 +69,17 @@ func (service ContactsService) AddAll(contacts []dtos.ContactsDTO) error {
 	}
 	return nil
 }
+
+func (service ContactsService) ListAll() ([]dtos.ContactsDTO, error) {
+	contacts, err := service.repository.ListAll()
+	if err != nil {
+		return nil, err
+	}
+
+	var contactsList []dtos.ContactsDTO
+	for _, contact := range contacts {
+		contactsList = append(contactsList, contact)
+	}
+
+	return contactsList, nil
+}
