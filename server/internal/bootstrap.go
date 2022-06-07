@@ -50,7 +50,7 @@ func SetupApp(data config.AppConfig, closeServerChan chan string) *fiber.App {
 
 	// Create the JWT Middleware
 	jwtMiddleware := jwtware.New(jwtware.Config{
-		SigningKey:          []byte(data.Server.SymmetricKey),
+		SigningKey:          []byte(data.SymmetricKey),
 		KeyRefreshInterval:  nil,
 		KeyRefreshRateLimit: nil,
 		SigningMethod:       jwtware.ES256,

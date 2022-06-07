@@ -26,7 +26,7 @@ func bindInjections(conf config.AppConfig) (injector remy.Injector, err error) {
 
 	injector = remy.NewInjector(remy.Config{GenerifyInterfaces: false})
 
-	remy.RegisterInstance(injector, conf.Server.SymmetricKey, "security.secret_key")
+	remy.RegisterInstance(injector, conf.SymmetricKey, "security.secret_key")
 
 	// Bind authcore service
 	authcore.BindInjections(injector)

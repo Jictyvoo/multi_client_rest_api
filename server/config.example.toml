@@ -1,11 +1,11 @@
+sign_key = "A example sign key for JWT token"
+is_debug = false
+
 [server]
 host = "localhost"
 port = 8080
-sign_key = "1s0fSDFf9340SEF@$jf"
-is_debug = false
 
 [databases]
-
 [databases.abz_1]
 host = "abz_1_database"
 port = 3306
