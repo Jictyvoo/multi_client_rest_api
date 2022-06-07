@@ -1,0 +1,37 @@
+name: Test ABZ_1 Module
+
+on:
+  push:
+    branches: [develop, $default-branch]
+    paths:
+      - "modules/abz_1_core/**"
+      - ".github/workflows/test_abz_module.yml"
+  pull_request:
+    branches: [develop, $default-branch]
+    paths:
+      - "modules/abz_1_core/**"
+      - ".github/workflows/test_abz_module.yml"
+
+jobs:
+  tests:
+    strategy:
+      matrix:
+        go-version:
+          - 1.18.x
+        platform:
+          - ubuntu-latest
+          - windows-latest
+    runs-on: "${{ matrix.platform }}"
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "${{ matrix.go-version }}"
+      - name: Fetch Repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{secrets.WRAPPED_TOKEN}}
+          submodules: recursive
+
+      - name: Test abz_1_core
+        run: cd ./apps/abz_1_core && go test -v -race ./...
