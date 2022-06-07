@@ -4,10 +4,15 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/jictyvoo/multi_client_rest_api/services/authcore/internal/domain"
 	"github.com/jictyvoo/multi_client_rest_api/services/authcore/internal/domain/dtos"
+	"github.com/wrapped-owls/goremy-di/remy"
 )
 
 type AuthController struct {
-	service domain.CustomerAuthService
+	service *domain.CustomerAuthService
+}
+
+func NewAuthController(injector remy.Injector) *AuthController {
+	return &AuthController{service: domain.NewCustomerAuthService(nil, "")}
 }
 
 func (ctrl *AuthController) Bind(router fiber.Router) {

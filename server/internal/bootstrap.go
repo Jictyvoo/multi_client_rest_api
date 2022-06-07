@@ -8,6 +8,7 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/config"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/controllers"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
+	"github.com/jictyvoo/multi_client_rest_api/services/authcore"
 	"log"
 	"runtime"
 )
@@ -48,7 +49,7 @@ func SetupApp(data config.AppConfig, closeServerChan chan string) *fiber.App {
 	}
 
 	// Create the JWT Middleware
-	_ = jwtware.New(jwtware.Config{
+	jwtMiddleware := jwtware.New(jwtware.Config{
 		SigningKey:          []byte(data.Server.SymmetricKey),
 		KeyRefreshInterval:  nil,
 		KeyRefreshRateLimit: nil,
@@ -60,7 +61,10 @@ func SetupApp(data config.AppConfig, closeServerChan chan string) *fiber.App {
 	})
 
 	controllers.NewContactsController(injector).
-		Bind(app.Group("/contacts"))
+		Bind(app.Group("/contacts", jwtMiddleware))
+
+	authcore.NewAuthController(injector).
+		Bind(app.Group("/auth"))
 
 	return app
 }

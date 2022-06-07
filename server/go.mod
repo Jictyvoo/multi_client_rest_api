@@ -6,6 +6,7 @@ replace (
 	github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core => ../modules/abz_1_core
 	github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core => ../modules/xyc_2_core
 	github.com/jictyvoo/multi_client_rest_api/services/apicontracts => ../services/apicontracts
+	github.com/jictyvoo/multi_client_rest_api/services/authcore => ../services/authcore
 )
 
 require (
@@ -14,6 +15,7 @@ require (
 	github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core v0.0.0-00010101000000-000000000000
 	github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core v0.0.0-00010101000000-000000000000
 	github.com/jictyvoo/multi_client_rest_api/services/apicontracts v0.0.0-00010101000000-000000000000
+	github.com/jictyvoo/multi_client_rest_api/services/authcore v0.0.0-00010101000000-000000000000
 	github.com/pelletier/go-toml/v2 v2.0.1
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.12.0
@@ -42,6 +44,7 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.37.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
+	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
