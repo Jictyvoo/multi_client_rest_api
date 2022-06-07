@@ -9,6 +9,7 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/controllers"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
 	"github.com/jictyvoo/multi_client_rest_api/services/authcore"
+	"github.com/jictyvoo/multi_client_rest_api/services/authcore/authware"
 	"log"
 	"runtime"
 )
@@ -59,9 +60,15 @@ func SetupApp(data config.AppConfig, closeServerChan chan string) *fiber.App {
 		AuthScheme:          "Bearer",
 		KeyFunc:             nil,
 	})
+	customerAuthMiddleware := authware.New(authware.Config{
+		NamespaceChecker:    authcore.CustomerFindChecker(injector),
+		AuthContextKey:      jwtContextKey,
+		NamespaceContextKey: "service-name",
+		CacheStorage:        nil,
+	})
 
 	controllers.NewContactsController(injector).
-		Bind(app.Group("/contacts", jwtMiddleware))
+		Bind(app.Group("/contacts", jwtMiddleware, customerAuthMiddleware))
 
 	authcore.NewAuthController(injector).
 		Bind(app.Group("/auth"))
