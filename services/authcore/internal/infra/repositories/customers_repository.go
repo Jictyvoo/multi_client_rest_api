@@ -17,8 +17,9 @@ func (repo CustomersRepositoryImpl) FindByName(name string) (customer dtos.Custo
 	for _, c := range repo.customersList.Customers {
 		if c.Name == name {
 			return dtos.CustomerDTO{
-				Name: c.Name,
-				Key:  string(c.Key),
+				Name:      c.Name,
+				Namespace: c.Namespace,
+				Key:       string(c.Key),
 			}, nil
 		}
 	}

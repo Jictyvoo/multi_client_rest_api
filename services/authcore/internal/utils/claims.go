@@ -7,8 +7,8 @@ import (
 )
 
 type Claims struct {
-	Name      string `json:"name"`
-	Uuid      uuid.UUID
+	Name      string    `json:"name"`
+	Uuid      uuid.UUID `json:"uuid"`
 	ExpiresAt time.Time `json:"expires_at"`
 }
 
