@@ -4,7 +4,7 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/core"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/entities"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/interfaces"
-	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/utils"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/corerrs"
 	"github.com/wrapped-owls/goremy-di/remy"
 )
 
@@ -31,8 +31,8 @@ func (service ContactsService) Validate(dto interfaces.ContactDTO) (contact enti
 	// check if the contact already exists
 	var tempContact interfaces.ContactDTO
 	tempContact, err = service.repository.GetByPhone(contact.Phone())
-	if err == nil && (tempContact != nil && len(tempContact.Phone()) > 0) {
-		err = utils.ErrContactAlreadyExists
+	if err == nil && len(tempContact.Phone()) > 0 {
+		err = corerrs.ErrContactAlreadyExists
 		return
 	}
 	return
@@ -46,7 +46,12 @@ func (service ContactsService) Add(contacts []interfaces.ContactDTO) error {
 		}
 
 		// add the contact
-		if err = service.repository.Add(contact); err != nil {
+		if err = service.repository.Add(
+			interfaces.ContactDTO{
+				FullName:  contact.Name(),
+				Cellphone: contact.Phone(),
+			},
+		); err != nil {
 			return err
 		}
 	}

@@ -5,10 +5,11 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/interfaces"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/infra/repositories"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/services"
 	"github.com/wrapped-owls/goremy-di/remy"
 )
 
-func NewContactsService() *domain.ContactsService {
+func NewContactsService() services.ContactsServiceFacade {
 	return domain.NewContactsService(nil)
 }
 

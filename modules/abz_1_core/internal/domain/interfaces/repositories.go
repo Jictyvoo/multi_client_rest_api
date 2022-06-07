@@ -1,10 +1,11 @@
 package interfaces
 
+import (
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/dtos"
+)
+
 type (
-	ContactDTO interface {
-		Name() string
-		Phone() string
-	}
+	ContactDTO         = dtos.ContactsDTO
 	ContactsRepository interface {
 		ListAll() (contactsList []ContactDTO, err error)
 		Add(ContactDTO) error
