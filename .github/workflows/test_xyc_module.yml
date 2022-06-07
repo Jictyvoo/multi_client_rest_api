@@ -2,12 +2,16 @@ name: Test XYC_2 Module
 
 on:
   push:
-    branches: [develop, $default-branch]
+    branches:
+      - main
+      - develop
     paths:
       - "modules/xyc_2_core/**"
       - ".github/workflows/test_xyc_module.yml"
   pull_request:
-    branches: [develop, $default-branch]
+    branches:
+      - main
+      - develop
     paths:
       - "modules/xyc_2_core/**"
       - ".github/workflows/test_xyc_module.yml"
@@ -29,9 +33,6 @@ jobs:
           go-version: "${{ matrix.go-version }}"
       - name: Fetch Repository
         uses: actions/checkout@v2
-        with:
-          token: ${{secrets.WRAPPED_TOKEN}}
-          submodules: recursive
 
       - name: Test xyc_2_core
-        run: cd ./apps/xyc_2_core && go test -v -race ./...
+        run: cd ./modules/xyc_2_core && go test -v -race ./...
