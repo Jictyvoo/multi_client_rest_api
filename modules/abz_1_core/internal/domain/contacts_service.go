@@ -12,9 +12,12 @@ type ContactsService struct {
 	repository interfaces.ContactsRepository
 }
 
-func NewContactsService() *ContactsService {
+func NewContactsService(repository interfaces.ContactsRepository) *ContactsService {
+	if repository == nil {
+		repository = remy.Get[interfaces.ContactsRepository](core.Injector)
+	}
 	return &ContactsService{
-		repository: remy.Get[interfaces.ContactsRepository](core.Injector),
+		repository: repository,
 	}
 }
 
@@ -27,7 +30,8 @@ func (service ContactsService) Validate(dto interfaces.ContactDTO) (contact enti
 
 	// check if the contact already exists
 	var tempContact interfaces.ContactDTO
-	if tempContact, err = service.repository.GetByPhone(contact.Phone()); err == nil && len(tempContact.Phone()) > 0 {
+	tempContact, err = service.repository.GetByPhone(contact.Phone())
+	if err == nil && (tempContact != nil && len(tempContact.Phone()) > 0) {
 		err = utils.ErrContactAlreadyExists
 		return
 	}
