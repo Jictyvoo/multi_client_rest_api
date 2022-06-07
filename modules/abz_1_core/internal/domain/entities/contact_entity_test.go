@@ -6,6 +6,14 @@ import (
 	"testing"
 )
 
+func TestContactEntity_Name(t *testing.T) {
+	contact := ContactEntity{name: "Mamão com Açúcar"}
+	const expectedName = "MAMÃO COM AÇÚCAR"
+	if contact.Name() != expectedName {
+		t.Errorf("Name was not parsed correctly.\nReceived:`%s`\nExpected:`%s`", contact.Name(), expectedName)
+	}
+}
+
 func TestContactEntity_SetPhone__Valid(t *testing.T) {
 	contact := ContactEntity{}
 	err := contact.SetPhone("5541930306905")
