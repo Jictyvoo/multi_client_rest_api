@@ -6,7 +6,8 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core/internal/domain/entities"
 	"github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core/internal/domain/interfaces"
 	"github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core/internal/domain/mocks"
-	"github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core/internal/domain/utils"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/corerrs"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/dtos"
 	"strings"
 	"testing"
 )
@@ -34,8 +35,8 @@ func TestContactsService_Validate(t *testing.T) {
 	tempDto.EXPECT().Phone().Return("5575988004050").AnyTimes()
 	tempDto.EXPECT().Name().Return(strings.ToLower("not THE s@m3 nUmBeR")).AnyTimes()
 
-	err := service.Add([]interfaces.ContactDTO{tempDto})
-	if err != nil && !errors.Is(err, utils.ErrContactAlreadyExists) {
+	err := service.Add([]dtos.ContactsDTO{tempDto})
+	if err != nil && !errors.Is(err, corerrs.ErrContactAlreadyExists) {
 		t.Error(err)
 	}
 }
@@ -56,7 +57,7 @@ func TestContactsService_Add(t *testing.T) {
 		DoAndReturn(func(phone string) (interfaces.ContactDTO, error) {
 			for _, dto := range mockList {
 				if dto.Phone() == phone {
-					return dto, utils.ErrContactAlreadyExists
+					return dto, corerrs.ErrContactAlreadyExists
 				}
 			}
 			return nil, nil
@@ -79,8 +80,8 @@ func TestContactsService_Add(t *testing.T) {
 	tempDto.EXPECT().Name().Return(strings.ToLower("not THE s@m3 nUmBeR")).AnyTimes()
 
 	service := NewContactsService(repoMock)
-	err := service.Add([]interfaces.ContactDTO{tempDto, dtoMock})
-	if err != nil && !errors.Is(err, utils.ErrContactAlreadyExists) {
+	err := service.Add([]dtos.ContactsDTO{tempDto, dtoMock})
+	if err != nil && !errors.Is(err, corerrs.ErrContactAlreadyExists) {
 		t.Error(err)
 	}
 

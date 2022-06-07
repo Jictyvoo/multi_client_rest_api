@@ -7,6 +7,7 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/interfaces"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/mocks"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/corerrs"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/dtos"
 	"strings"
 	"testing"
 )
@@ -34,7 +35,7 @@ func TestContactsService_Validate(t *testing.T) {
 	tempDto.EXPECT().Phone().Return("5575988004050").AnyTimes()
 	tempDto.EXPECT().Name().Return(strings.ToLower("NOT THE SAME NUMBER")).AnyTimes()
 
-	err := service.Add([]interfaces.ContactDTO{tempDto})
+	err := service.Add([]dtos.ContactsDTO{tempDto})
 	if err != nil && !errors.Is(err, corerrs.ErrContactAlreadyExists) {
 		t.Error(err)
 	}
@@ -79,7 +80,7 @@ func TestContactsService_Add(t *testing.T) {
 	tempDto.EXPECT().Name().Return(strings.ToLower("NOT THE SAME NUMBER")).AnyTimes()
 
 	service := NewContactsService(repoMock)
-	err := service.Add([]interfaces.ContactDTO{tempDto, dtoMock})
+	err := service.Add([]dtos.ContactsDTO{tempDto, dtoMock})
 	if err != nil && !errors.Is(err, corerrs.ErrContactAlreadyExists) {
 		t.Error(err)
 	}
