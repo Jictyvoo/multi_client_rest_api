@@ -36,10 +36,7 @@ func (repo ContactsDbRepository) ListAll() (contactsList []interfaces.ContactDTO
 		if err != nil {
 			return nil, err
 		}
-		contactsList = append(contactsList, interfaces.ContactDTO{
-			FullName:  contact.Name(),
-			Cellphone: contact.Phone(),
-		})
+		contactsList = append(contactsList, contact)
 	}
 	return
 }
@@ -78,8 +75,5 @@ func (repo ContactsDbRepository) GetByPhone(s string) (interfaces.ContactDTO, er
 	const sqlCmd = `SELECT nome, celular FROM contacts WHERE celular = $1`
 	var contact models.ContactsModel
 	err := repo.db.QueryRow(sqlCmd, s).Scan(&contact.FullName, &contact.Cellphone)
-	return interfaces.ContactDTO{
-		FullName:  contact.Name(),
-		Cellphone: contact.Phone(),
-	}, err
+	return contact, err
 }

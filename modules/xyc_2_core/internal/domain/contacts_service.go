@@ -46,10 +46,7 @@ func (service ContactsService) Add(contacts []interfaces.ContactDTO) error {
 		}
 
 		// add the contact
-		if err = service.repository.Add(interfaces.ContactDTO{
-			FullName:  contact.Name(),
-			Cellphone: contact.Phone(),
-		}); err != nil {
+		if err = service.repository.Add(contact); err != nil {
 			return err
 		}
 	}

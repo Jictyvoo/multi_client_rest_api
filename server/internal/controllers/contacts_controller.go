@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/dtos"
+	"github.com/jictyvoo/multi_client_rest_api/server/internal/dtos"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/services"
 	"github.com/wrapped-owls/goremy-di/remy"
 )

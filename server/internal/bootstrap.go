@@ -9,6 +9,7 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/config"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/controllers"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/services"
 	"github.com/wrapped-owls/goremy-di/remy"
 	"log"
 	"runtime"
@@ -39,7 +40,7 @@ func bindInjections() (injector remy.Injector, err error) {
 	// Bind the ABZ_1 Service
 	remy.Register(
 		injector,
-		remy.Factory(func(retriever remy.DependencyRetriever) utils.ContactsServiceFacade {
+		remy.Factory(func(retriever remy.DependencyRetriever) services.ContactsServiceFacade {
 			// TODO: Implement the factory
 			return nil
 		}),
@@ -49,7 +50,7 @@ func bindInjections() (injector remy.Injector, err error) {
 	// Bind the XYC_2 Service
 	remy.Register(
 		injector,
-		remy.Factory(func(retriever remy.DependencyRetriever) utils.ContactsServiceFacade {
+		remy.Factory(func(retriever remy.DependencyRetriever) services.ContactsServiceFacade {
 			// TODO: Implement the factory
 			return nil
 		}),
