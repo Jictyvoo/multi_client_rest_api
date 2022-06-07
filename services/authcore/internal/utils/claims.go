@@ -1,12 +1,14 @@
 package utils
 
 import (
+	"github.com/google/uuid"
 	"github.com/jictyvoo/multi_client_rest_api/services/authcore/internal/domain/dtos"
 	"time"
 )
 
 type Claims struct {
-	Namespace string    `json:"name"`
+	Name      string `json:"name"`
+	Uuid      uuid.UUID
 	ExpiresAt time.Time `json:"expires_at"`
 }
 
@@ -15,7 +17,11 @@ func (c Claims) Valid() error {
 		return dtos.ErrExpiredToken
 	}
 
-	if len(c.Namespace) < 5 {
+	if len(c.Uuid.String()) < 5 {
+		return dtos.ErrInvalidMissingUUID
+	}
+
+	if len(c.Name) < 5 {
 		return dtos.ErrInvalidMissingName
 	}
 	return nil

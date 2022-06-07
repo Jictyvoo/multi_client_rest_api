@@ -26,7 +26,7 @@ func (serv CustomerAuthService) DoLogin(name, key string) (utils.Claims, error) 
 		return utils.Claims{}, dtos.ErrInvalidCustomerKey
 	}
 
-	return utils.GenerateClaimToken(customer.Namespace), nil
+	return utils.GenerateClaimToken(customer.Name), nil
 }
 
 func (serv CustomerAuthService) CreateAccessToken(claims utils.Claims) (string, error) {

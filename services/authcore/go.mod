@@ -4,7 +4,9 @@ go 1.18
 
 require (
 	github.com/gofiber/fiber/v2 v2.34.0
+	github.com/gofiber/storage/memory v0.0.0-20220523092334-6d96fb56afb5
 	github.com/golang-jwt/jwt/v4 v4.4.1
+	github.com/google/uuid v1.3.0
 	github.com/wrapped-owls/goremy-di/remy v1.1.0
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 )

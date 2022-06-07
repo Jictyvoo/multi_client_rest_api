@@ -2,6 +2,7 @@ package utils
 
 import (
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"time"
 )
@@ -11,10 +12,12 @@ const (
 	passwordCost        = 11
 )
 
-func GenerateClaimToken(namespace string) Claims {
+func GenerateClaimToken(name string) Claims {
+	token, _ := uuid.NewRandom()
 	return Claims{
-		Namespace: namespace,
+		Name:      name,
 		ExpiresAt: time.Now().Add(tokenExpirationTime),
+		Uuid:      token,
 	}
 }
 
