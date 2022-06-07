@@ -25,7 +25,11 @@ func (ctrl *ContactsController) Bind(router fiber.Router) {
 
 func (ctrl ContactsController) getService(c *fiber.Ctx) (services.ContactsServiceFacade, error) {
 	// Check if the key in context
-	serviceName := c.Locals("service-name", "").(string)
+	var serviceName string
+	undefinedTypeName := c.Locals("service-name")
+	if undefinedTypeName != nil {
+		serviceName = undefinedTypeName.(string)
+	}
 	if len(serviceName) == 0 {
 		return nil, utils.ErrServiceNotFound
 	}
