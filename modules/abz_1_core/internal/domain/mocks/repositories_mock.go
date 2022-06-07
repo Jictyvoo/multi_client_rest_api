@@ -100,7 +100,7 @@ func (mr *MockContactsRepositoryMockRecorder) Add(arg0 interface{}) *gomock.Call
 }
 
 // AddAll mocks base method.
-func (m *MockContactsRepository) AddAll(arg0 interfaces.ContactDTO) error {
+func (m *MockContactsRepository) AddAll(arg0 []interfaces.ContactDTO) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddAll", arg0)
 	ret0, _ := ret[0].(error)
@@ -126,4 +126,19 @@ func (m *MockContactsRepository) GetByPhone(arg0 string) (interfaces.ContactDTO,
 func (mr *MockContactsRepositoryMockRecorder) GetByPhone(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByPhone", reflect.TypeOf((*MockContactsRepository)(nil).GetByPhone), arg0)
+}
+
+// ListAll mocks base method.
+func (m *MockContactsRepository) ListAll() ([]interfaces.ContactDTO, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAll")
+	ret0, _ := ret[0].([]interfaces.ContactDTO)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAll indicates an expected call of ListAll.
+func (mr *MockContactsRepositoryMockRecorder) ListAll() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAll", reflect.TypeOf((*MockContactsRepository)(nil).ListAll))
 }
