@@ -8,8 +8,8 @@ services:
       MYSQL_ROOT_PASSWORD: iam_a_master
       MYSQL_DATABASE: abz_1_db
       MYSQL_USER: user_abz
-      MYSQL_PASSWORD: admin
-      MYSQL_ROOT_HOST: %
+      MYSQL_PASSWORD: not_a_real_password
+      MYSQL_ROOT_HOST: '%'
     ports:
       - "6603:3306"
     command: --default-authentication-plugin=mysql_native_password
@@ -22,3 +22,4 @@ services:
     environment:
       POSTGRES_PASSWORD: get_a_access
       POSTGRES_USER: user_xyc
+      POSTGRES_DB: xyc_2_db
