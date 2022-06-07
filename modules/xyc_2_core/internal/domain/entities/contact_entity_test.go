@@ -2,7 +2,7 @@ package entities
 
 import (
 	"errors"
-	"github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core/internal/domain/utils"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/corerrs"
 	"testing"
 )
 
@@ -52,7 +52,7 @@ func TestContactEntity_SetPhone__InValid(t *testing.T) {
 
 	for _, phone := range invalidPhones {
 		err := contact.SetPhone(phone)
-		if err == nil && !errors.Is(err, utils.ErrInvalidPhone) {
+		if err == nil && !errors.Is(err, corerrs.ErrInvalidPhone) {
 			t.Errorf("The phone number `%s` provided should be invalid", phone)
 		}
 	}

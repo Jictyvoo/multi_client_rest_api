@@ -1,7 +1,7 @@
 package entities
 
 import (
-	"github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core/internal/domain/utils"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/corerrs"
 	"github.com/nyaruka/phonenumbers"
 	"strings"
 )
@@ -29,7 +29,7 @@ func (c *ContactEntity) SetName(name string) {
 func (c *ContactEntity) SetPhone(phone string) error {
 	parsedPhone, err := phonenumbers.Parse(phone, "BR")
 	if !phonenumbers.IsValidNumber(parsedPhone) {
-		return utils.ErrInvalidPhone
+		return corerrs.ErrInvalidPhone
 	}
 
 	c.cellphone = parsedPhone
