@@ -1,4 +1,4 @@
-package abz_1_core
+package xyc_2_core
 
 import (
 	"database/sql"

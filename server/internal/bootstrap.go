@@ -6,6 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	recovery "github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core"
+	"github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/config"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/controllers"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
@@ -41,8 +43,7 @@ func bindInjections() (injector remy.Injector, err error) {
 	remy.Register(
 		injector,
 		remy.Factory(func(retriever remy.DependencyRetriever) services.ContactsServiceFacade {
-			// TODO: Implement the factory
-			return nil
+			return abz_1_core.NewContactsService()
 		}),
 		utils.ServiceABZ1,
 	)
@@ -51,8 +52,7 @@ func bindInjections() (injector remy.Injector, err error) {
 	remy.Register(
 		injector,
 		remy.Factory(func(retriever remy.DependencyRetriever) services.ContactsServiceFacade {
-			// TODO: Implement the factory
-			return nil
+			return xyc_2_core.NewContactsService()
 		}),
 		utils.ServiceXYC2,
 	)
