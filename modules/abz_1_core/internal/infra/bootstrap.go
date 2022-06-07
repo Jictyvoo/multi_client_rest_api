@@ -10,6 +10,7 @@ import (
 )
 
 func init() {
+	// TODO: Remove from init function, it must receive the config from the main function
 	remy.Register(core.Injector, remy.Singleton(func(retriever remy.DependencyRetriever) *sql.DB {
 		db, err := sql.Open("mysql", "user:password@/dbname")
 		if err != nil {

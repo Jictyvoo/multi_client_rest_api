@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/golang/mock v1.6.0
 	github.com/nyaruka/phonenumbers v1.0.75
 	github.com/wrapped-owls/goremy-di/remy v1.1.0
 )
