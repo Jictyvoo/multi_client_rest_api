@@ -5,6 +5,7 @@ import (
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/entities"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/interfaces"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/corerrs"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/dtos"
 	"github.com/wrapped-owls/goremy-di/remy"
 )
 
@@ -38,7 +39,7 @@ func (service ContactsService) Validate(dto interfaces.ContactDTO) (contact enti
 	return
 }
 
-func (service ContactsService) Add(contacts []interfaces.ContactDTO) error {
+func (service ContactsService) Add(contacts []dtos.ContactsDTO) error {
 	for _, contactDTO := range contacts {
 		contact, err := service.Validate(contactDTO)
 		if err != nil {
