@@ -11,12 +11,13 @@ func startServer(cmd *cobra.Command, args []string) {
 	/* Run setup */
 	serverCloseChan := make(chan string)
 	app := internal.SetupApp(
+		configData,
 		serverCloseChan,
 	)
 
 	// Listen on port informed in flag or .env
-	// go run main.go serve -port=8000 -url=localhost
-	if err := app.Listen(fmt.Sprintf("%s:%d", "0.0.0.0", 8080)); err != nil {
+	// go run main.go serve -port=8000 --H=localhost
+	if err := app.Listen(fmt.Sprintf("%s:%d", configData.Server.Host, configData.Server.Port)); err != nil {
 		log.Fatalln(err)
 	}
 	// TODO: Add viper watch for config changes

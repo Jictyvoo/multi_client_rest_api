@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	recovery "github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/jictyvoo/multi_client_rest_api/server/internal/config"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/controllers"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
 	"github.com/wrapped-owls/goremy-di/remy"
@@ -57,7 +58,7 @@ func bindInjections() (injector remy.Injector, err error) {
 	return
 }
 
-func SetupApp(closeServerChan chan string) *fiber.App {
+func SetupApp(data config.AppConfig, closeServerChan chan string) *fiber.App {
 	// start bind the injections
 	injector, err := bindInjections()
 	if err != nil {
