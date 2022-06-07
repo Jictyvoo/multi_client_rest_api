@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"database/sql"
+	"errors"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/interfaces"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/infra/models"
 )
@@ -55,9 +56,12 @@ func (repo ContactsDbRepository) AddAll(dto []interfaces.ContactDTO) (err error)
 		return err
 	}
 	defer func(tx *sql.Tx) {
-		rollbackErr := tx.Rollback()
-		if err == nil {
-			err = rollbackErr
+		if err != nil {
+			rollbackErr := tx.Rollback()
+			if rollbackErr != nil {
+				// wrap the rollback error with the original error
+				err = errors.New(err.Error() + "; " + rollbackErr.Error())
+			}
 		}
 	}(tx)
 
@@ -68,7 +72,9 @@ func (repo ContactsDbRepository) AddAll(dto []interfaces.ContactDTO) (err error)
 			return err
 		}
 	}
-	return err
+
+	err = tx.Commit()
+	return
 }
 
 func (repo ContactsDbRepository) GetByPhone(s string) (interfaces.ContactDTO, error) {
