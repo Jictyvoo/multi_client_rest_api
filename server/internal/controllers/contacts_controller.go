@@ -3,6 +3,8 @@ package controllers
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/dtos"
+	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/corerrs"
+	apiDtos "github.com/jictyvoo/multi_client_rest_api/services/apicontracts/dtos"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/services"
 	"github.com/wrapped-owls/goremy-di/remy"
 )
@@ -36,7 +38,24 @@ func (ctrl ContactsController) Insert(c *fiber.Ctx) error {
 	}
 
 	// Use the service to validate fields and execute the add function
-	// TODO: Implement
+	contactsDtoList := make([]apiDtos.ContactsDTO, 0, len(contactsList.Contacts))
+	for _, contact := range contactsList.Contacts {
+		contactsDtoList = append(contactsDtoList, contact)
+	}
+	err = service.Add(contactsDtoList)
+	if err != nil {
+		statusCode := fiber.StatusInternalServerError
+		if err == corerrs.ErrContactAlreadyExists {
+			statusCode = fiber.StatusConflict
+		} else if err == corerrs.ErrInvalidPhone {
+			statusCode = fiber.StatusBadRequest
+		}
+		return c.Status(statusCode).JSON(
+			fiber.Map{"content": "Unable to add contacts", "error": err.Error()},
+		)
+	}
 
-	return nil
+	return c.Status(fiber.StatusCreated).JSON(
+		fiber.Map{"content": "Contacts added successfully"},
+	)
 }

@@ -1,12 +1,12 @@
 package domain
 
 import (
-	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/core"
+	"database/sql"
+	"errors"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/entities"
 	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core/internal/domain/interfaces"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/corerrs"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/dtos"
-	"github.com/wrapped-owls/goremy-di/remy"
 )
 
 type ContactsService struct {
@@ -14,9 +14,6 @@ type ContactsService struct {
 }
 
 func NewContactsService(repository interfaces.ContactsRepository) *ContactsService {
-	if repository == nil {
-		repository = remy.Get[interfaces.ContactsRepository](core.Injector)
-	}
 	return &ContactsService{
 		repository: repository,
 	}
@@ -35,6 +32,8 @@ func (service ContactsService) Validate(dto interfaces.ContactDTO) (contact enti
 	if err == nil && len(tempContact.Phone()) > 0 {
 		err = corerrs.ErrContactAlreadyExists
 		return
+	} else if errors.Is(sql.ErrNoRows, err) {
+		err = nil
 	}
 	return
 }
