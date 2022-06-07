@@ -29,6 +29,19 @@ func (serv CustomerAuthService) DoLogin(name, key string) (utils.Claims, error) 
 	return utils.GenerateClaimToken(customer.Name), nil
 }
 
+func (serv CustomerAuthService) Register(name, namespace, key string) error {
+	if customer, err := serv.customersRepo.FindByName(name); err == nil && len(customer.Name) > 0 {
+		return dtos.ErrCustomerAlreadyExists
+	}
+
+	encryptedKey, err := utils.EncryptPassword(key)
+	if err != nil {
+		return err
+	}
+
+	return serv.customersRepo.Create(name, namespace, encryptedKey)
+}
+
 func (serv CustomerAuthService) CreateAccessToken(claims utils.Claims) (string, error) {
 	return utils.CreateJWT(claims, serv.secretKey)
 }

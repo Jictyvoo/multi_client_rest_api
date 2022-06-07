@@ -6,15 +6,15 @@ import (
 )
 
 type CustomersRepositoryImpl struct {
-	customersList []models.CustomersModel
+	customersList *models.CustomersList
 }
 
-func NewCustomersRepositoryImpl(customersList []models.CustomersModel) *CustomersRepositoryImpl {
+func NewCustomersRepositoryImpl(customersList *models.CustomersList) *CustomersRepositoryImpl {
 	return &CustomersRepositoryImpl{customersList: customersList}
 }
 
 func (repo CustomersRepositoryImpl) FindByName(name string) (customer dtos.CustomerDTO, err error) {
-	for _, c := range repo.customersList {
+	for _, c := range repo.customersList.Customers {
 		if c.Name == name {
 			return dtos.CustomerDTO{
 				Name: c.Name,
@@ -25,4 +25,11 @@ func (repo CustomersRepositoryImpl) FindByName(name string) (customer dtos.Custo
 
 	err = dtos.ErrCustomerNotFound
 	return
+}
+func (repo *CustomersRepositoryImpl) Create(name string, namespace string, key []byte) error {
+	repo.customersList.Customers = append(
+		repo.customersList.Customers,
+		&models.CustomersModel{Name: name, Namespace: namespace, Key: key},
+	)
+	return nil
 }

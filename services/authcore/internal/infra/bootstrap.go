@@ -8,11 +8,16 @@ import (
 )
 
 func RegisterRepositories(injector remy.Injector) {
-	customersList := make([]models.CustomersModel, 0, 2)
+	remy.Register(
+		injector,
+		remy.LazySingleton(func(retriever remy.DependencyRetriever) *models.CustomersList {
+			return &models.CustomersList{}
+		}),
+	)
 	remy.Register(
 		injector,
 		remy.Factory(func(retriever remy.DependencyRetriever) interfaces.CustomersRepository {
-			return repositories.NewCustomersRepositoryImpl(customersList)
+			return repositories.NewCustomersRepositoryImpl(remy.Get[*models.CustomersList](retriever))
 		}),
 	)
 }
