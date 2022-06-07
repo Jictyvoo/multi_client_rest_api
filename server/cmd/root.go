@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+const DefaultConfigFileName = "config.toml"
+
 // rootCmd represents the base command when called without any subcommands
 var (
 	configData config.AppConfig
@@ -51,7 +53,7 @@ func initConfig() {
 	// SetConfigFile explicitly defines the path, name and extension of the config file.
 	// Viper will use this and not check any of the config paths.
 	// .env - It will search for the .env file in the current directory
-	viper.SetConfigFile("config.toml")
+	viper.SetConfigFile(DefaultConfigFileName)
 	viper.AllowEmptyEnv(true)
 
 	//viper.AutomaticEnv() // read in environment variables that match
