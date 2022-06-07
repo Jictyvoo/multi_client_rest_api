@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/dtos"
+	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/corerrs"
 	apiDtos "github.com/jictyvoo/multi_client_rest_api/services/apicontracts/dtos"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/services"
@@ -19,22 +20,43 @@ func NewContactsController(injector remy.Injector) *ContactsController {
 
 func (ctrl *ContactsController) Bind(router fiber.Router) {
 	router.Post("/", ctrl.Insert)
+	router.Get("/", ctrl.GetAll)
+}
+
+func (ctrl ContactsController) getService(c *fiber.Ctx) (services.ContactsServiceFacade, error) {
+	// Check if the key in context
+	serviceName := c.Locals("service-name", "").(string)
+	if len(serviceName) == 0 {
+		return nil, utils.ErrServiceNotFound
+	}
+	service := remy.Get[services.ContactsServiceFacade](ctrl.injector, serviceName)
+	return service, nil
+}
+
+func (ctrl ContactsController) sendServiceError(c *fiber.Ctx, err error, service services.ContactsServiceFacade) (error, bool) {
+	const message = "Unable to access service for given client"
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(
+			fiber.Map{"error": err.Error(), "content": message},
+		), true
+	}
+	if service == nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(
+			fiber.Map{"content": message},
+		), true
+	}
+	return nil, false
 }
 
 func (ctrl ContactsController) Insert(c *fiber.Ctx) error {
 	var contactsList dtos.ContactsListDTO
-	err := c.BodyParser(&contactsList)
-	if err != nil {
+	if err := c.BodyParser(&contactsList); err != nil {
 		return err
 	}
 
-	// Check if the key in context
-	serviceName := c.Locals("service-name", "").(string)
-	service := remy.Get[services.ContactsServiceFacade](ctrl.injector, serviceName)
-	if service == nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(
-			fiber.Map{"content": "Unable to access service for given client"},
-		)
+	service, err := ctrl.getService(c)
+	if sendErr, done := ctrl.sendServiceError(c, err, service); done || sendErr != nil {
+		return sendErr
 	}
 
 	// Use the service to validate fields and execute the add function
@@ -58,4 +80,21 @@ func (ctrl ContactsController) Insert(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(
 		fiber.Map{"content": "Contacts added successfully"},
 	)
+}
+
+func (ctrl *ContactsController) GetAll(c *fiber.Ctx) error {
+	service, err := ctrl.getService(c)
+	if sendErr, done := ctrl.sendServiceError(c, err, service); done || sendErr != nil {
+		return sendErr
+	}
+
+	if service == nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(
+			fiber.Map{"content": "Unable to access service for given client"},
+		)
+	}
+
+	// TODO: Implement me
+
+	return nil
 }
