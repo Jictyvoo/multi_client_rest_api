@@ -1,19 +1,19 @@
 package dtos
 
 type (
-	Contacts struct {
+	ContactsDTO struct {
 		FullName  string `json:"name"`
 		Cellphone string `json:"cellphone"`
 	}
 	ContactsListDTO struct {
-		Contacts []Contacts `json:"contacts"`
+		Contacts []ContactsDTO `json:"contacts"`
 	}
 )
 
-func (c Contacts) Name() string {
+func (c ContactsDTO) Name() string {
 	return c.FullName
 }
 
-func (c Contacts) Phone() string {
+func (c ContactsDTO) Phone() string {
 	return c.Cellphone
 }
