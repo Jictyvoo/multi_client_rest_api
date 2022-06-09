@@ -39,10 +39,10 @@ func init() {
 func RunServeCmd(cmd *cobra.Command, args []string) {
 	/* Run setup */
 	serverCloseChan := make(chan string)
-	if len(configData.Server.Host) == 0 {
+	if len(cmdHost) > 0 {
 		configData.Server.Host = cmdHost
 	}
-	if configData.Server.Port == 0 {
+	if cmdPort > 0 {
 		configData.Server.Port = cmdPort
 	}
 	app := internal.SetupApp(
