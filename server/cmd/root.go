@@ -20,7 +20,7 @@ var (
 		Long:  `a test server that works to enable the access to multiple clients using a single endpoint. So this can work as an API gateway.`,
 		// The following line is executed as bare application
 		// and has an action associated with it:
-		Run: startServer,
+		Run: RunServeCmd,
 	}
 )
 

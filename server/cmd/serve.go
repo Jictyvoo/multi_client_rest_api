@@ -13,7 +13,30 @@ var (
 	cmdHost string
 )
 
-func startServer(cmd *cobra.Command, args []string) {
+// configCmd represents the config command
+var serverCmd = &cobra.Command{
+	Use:   "serve",
+	Short: "Start to serve the application",
+	Long:  `Configure and serve the app based on the config provided`,
+	Run:   RunServeCmd,
+}
+
+func init() {
+	rootCmd.AddCommand(serverCmd)
+
+	// Here you will define your flags and configuration settings.
+
+	// Cobra supports Persistent Flags which will work for this command
+	// and all subcommands, e.g.:
+	// configCmd.PersistentFlags().String("foo", "", "A help for foo")
+
+	// Cobra also supports local flags, which will only run
+	// when this action is called directly.
+	serverCmd.Flags().StringVarP(&cmdHost, "host", "H", "", "The host to listen on")
+	serverCmd.Flags().Uint16VarP(&cmdPort, "port", "p", 0, "The port to listen on")
+}
+
+func RunServeCmd(cmd *cobra.Command, args []string) {
 	/* Run setup */
 	serverCloseChan := make(chan string)
 	if len(configData.Server.Host) == 0 {
@@ -34,12 +57,4 @@ func startServer(cmd *cobra.Command, args []string) {
 	}
 	// TODO: Add viper watch for config changes
 	log.Println(<-serverCloseChan)
-}
-
-func init() {
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().StringVarP(&cmdHost, "host", "H", "", "The host to listen on")
-	rootCmd.Flags().Uint16VarP(&cmdPort, "port", "p", 0, "The port to listen on")
 }
