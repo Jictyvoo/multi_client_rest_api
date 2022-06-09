@@ -1,11 +1,12 @@
 package cmd
 
 import (
+	"log"
+	"os"
+
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"log"
-	"os"
 )
 
 const DefaultConfigFileName = "config.toml"
@@ -40,11 +41,6 @@ func init() {
 	// will be global for your application.
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.server.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().StringP("host", "H", "", "The host to listen on")
-	rootCmd.Flags().Uint16P("port", "p", 0, "The port to listen on")
 }
 
 // initConfig reads in config file and ENV variables if set.
