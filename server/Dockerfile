@@ -43,6 +43,6 @@ COPY --from=builder /go/src/jictyvoo/server/multiclient_server /bin/multiclient_
 EXPOSE 8080
 
 # Run the binary program produced by `go build`
-ENTRYPOINT ["/bin/multiclient_server", "--host", "0.0.0.0", "--port", "8080"]
+ENTRYPOINT ["/bin/multiclient_server", "serve", "--host", "0.0.0.0", "--port", "8080"]
 
 CMD ["/bin/multiclient_server"]
