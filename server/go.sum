@@ -204,8 +204,8 @@ github.com/valyala/fasthttp v1.37.0 h1:7WHCyI7EAkQMVmrfBhWTCOaeROb1aCBiTopx63LkM
 github.com/valyala/fasthttp v1.37.0/go.mod h1:t/G+3rLek+CyY9bnIE+YlMRddxVAAGjhxndDB4i4C0I=
 github.com/valyala/tcplisten v1.0.0 h1:rBHj/Xf+E1tRGZyWIWwJDiRY0zc1Js+CV5DqwacVSA8=
 github.com/valyala/tcplisten v1.0.0/go.mod h1:T0xQ8SeCZGxckz9qRXTfG43PvQ/mcWh7FwZEA7Ioqkc=
-github.com/wrapped-owls/goremy-di/remy v1.1.0 h1:UoGUQ6qGjI1GDbsclC2wPB8hbEiJWieDhLmiT3zfIQA=
-github.com/wrapped-owls/goremy-di/remy v1.1.0/go.mod h1:qYN9E07yip4Vw4oihsMq05IgLSMvFKsjrA/Ca79zq8w=
+github.com/wrapped-owls/goremy-di/remy v1.2.1 h1:58h1OF+/LndmN77b6xE/NVSIv5YRUmqDj4Jo2/Qo8Z8=
+github.com/wrapped-owls/goremy-di/remy v1.2.1/go.mod h1:qYN9E07yip4Vw4oihsMq05IgLSMvFKsjrA/Ca79zq8w=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=

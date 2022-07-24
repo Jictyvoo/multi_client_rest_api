@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	defaultStackTraceLength = 1024
+	defaultStackTraceLength = 2048
 	jwtContextKey           = "client-token"
 )
 

@@ -9,7 +9,7 @@ require (
 	github.com/jictyvoo/multi_client_rest_api/services/apicontracts v0.0.0-00010101000000-000000000000
 	github.com/lib/pq v1.10.6
 	github.com/nyaruka/phonenumbers v1.0.75
-	github.com/wrapped-owls/goremy-di/remy v1.1.0
+	github.com/wrapped-owls/goremy-di/remy v1.2.1
 )
 
 require (

@@ -19,7 +19,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.1
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.12.0
-	github.com/wrapped-owls/goremy-di/remy v1.1.0
+	github.com/wrapped-owls/goremy-di/remy v1.2.1
 )
 
 require (

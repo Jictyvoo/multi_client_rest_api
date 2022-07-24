@@ -24,7 +24,7 @@ func bindInjections(conf config.AppConfig) (injector remy.Injector, err error) {
 		}
 	}()
 
-	injector = remy.NewInjector(remy.Config{GenerifyInterfaces: false})
+	injector = remy.NewInjector(remy.Config{GenerifyInterfaces: false, UseReflectionType: true})
 
 	remy.RegisterInstance(injector, conf.SymmetricKey, "security.secret_key")
 
