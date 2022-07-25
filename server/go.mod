@@ -3,8 +3,7 @@ module github.com/jictyvoo/multi_client_rest_api/server
 go 1.18
 
 replace (
-	github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core => ../modules/abz_1_core
-	github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core => ../modules/xyc_2_core
+	github.com/jictyvoo/multi_client_rest_api/modules => ../modules/
 	github.com/jictyvoo/multi_client_rest_api/services/apicontracts => ../services/apicontracts
 	github.com/jictyvoo/multi_client_rest_api/services/authcore => ../services/authcore
 )
@@ -12,8 +11,7 @@ replace (
 require (
 	github.com/gofiber/fiber/v2 v2.34.0
 	github.com/gofiber/jwt/v3 v3.2.12
-	github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core v0.0.0-00010101000000-000000000000
-	github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core v0.0.0-00010101000000-000000000000
+	github.com/jictyvoo/multi_client_rest_api/modules v0.0.0-00010101000000-000000000000
 	github.com/jictyvoo/multi_client_rest_api/services/apicontracts v0.0.0-00010101000000-000000000000
 	github.com/jictyvoo/multi_client_rest_api/services/authcore v0.0.0-00010101000000-000000000000
 	github.com/pelletier/go-toml/v2 v2.0.1

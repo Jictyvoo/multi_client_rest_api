@@ -3,8 +3,7 @@ package internal
 import (
 	"errors"
 	"fmt"
-	"github.com/jictyvoo/multi_client_rest_api/modules/abz_1_core"
-	"github.com/jictyvoo/multi_client_rest_api/modules/xyc_2_core"
+	"github.com/jictyvoo/multi_client_rest_api/modules"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/config"
 	"github.com/jictyvoo/multi_client_rest_api/server/internal/utils"
 	"github.com/jictyvoo/multi_client_rest_api/services/apicontracts/services"
@@ -33,9 +32,9 @@ func bindInjections(conf config.AppConfig) (injector remy.Injector, err error) {
 
 	remy.Register(
 		injector,
-		remy.Instance(func(retriever remy.DependencyRetriever) abz_1_core.DatabaseConfig {
+		remy.Instance(func(retriever remy.DependencyRetriever) modules.DatabaseConfigABZ {
 			tempConf := conf.Database.Abz1
-			return abz_1_core.DatabaseConfig{
+			return modules.DatabaseConfigABZ{
 				Host:     tempConf.Host,
 				Port:     int(tempConf.Port),
 				User:     tempConf.User,
@@ -46,9 +45,9 @@ func bindInjections(conf config.AppConfig) (injector remy.Injector, err error) {
 	)
 	remy.Register(
 		injector,
-		remy.Instance(func(retriever remy.DependencyRetriever) xyc_2_core.DatabaseConfig {
+		remy.Instance(func(retriever remy.DependencyRetriever) modules.DatabaseConfigXYC {
 			tempConf := conf.Database.Xyc2
-			return xyc_2_core.DatabaseConfig{
+			return modules.DatabaseConfigXYC{
 				Host:     tempConf.Host,
 				Port:     int(tempConf.Port),
 				User:     tempConf.User,
@@ -60,22 +59,22 @@ func bindInjections(conf config.AppConfig) (injector remy.Injector, err error) {
 
 	// Bind the ABZ_1 Service
 	abzInjector := remy.NewInjector(remy.Config{GenerifyInterfaces: false, ParentInjector: injector})
-	abz_1_core.BindInjections(abzInjector)
+	modules.BindInjections(abzInjector)
 	remy.Register(
 		injector,
 		remy.Factory(func(remy.DependencyRetriever) services.ContactsServiceFacade {
-			return abz_1_core.NewContactsService(abzInjector)
+			return modules.ABZContactsServiceFactory.New(abzInjector)
 		}),
 		utils.ServiceABZ1,
 	)
 
 	// Bind the XYC_2 Service
 	xycInjector := remy.NewInjector(remy.Config{GenerifyInterfaces: false, ParentInjector: injector})
-	xyc_2_core.BindInjections(xycInjector)
+	modules.BindInjections(xycInjector)
 	remy.Register(
 		injector,
 		remy.Factory(func(retriever remy.DependencyRetriever) services.ContactsServiceFacade {
-			return xyc_2_core.NewContactsService(xycInjector)
+			return modules.XYCContactsServiceFactory.New(xycInjector)
 		}),
 		utils.ServiceXYC2,
 	)

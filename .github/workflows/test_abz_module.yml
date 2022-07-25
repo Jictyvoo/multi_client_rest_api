@@ -6,14 +6,14 @@ on:
       - main
       - develop
     paths:
-      - "modules/abz_1_core/**"
+      - "modules/abzcore/**"
       - ".github/workflows/test_abz_module.yml"
   pull_request:
     branches:
       - main
       - develop
     paths:
-      - "modules/abz_1_core/**"
+      - "modules/abzcore/**"
       - ".github/workflows/test_abz_module.yml"
 
 jobs:
@@ -34,5 +34,5 @@ jobs:
       - name: Fetch Repository
         uses: actions/checkout@v2
 
-      - name: Test abz_1_core
-        run: cd ./modules/abz_1_core && go test -v -race ./...
+      - name: Test abzcore
+        run: cd ./modules/abzcore && go test -v -race ./...
