@@ -10,17 +10,20 @@ import (
 )
 
 type ContactsService[T entities.ContactEntity] struct {
-	repository interfaces.ContactsRepository
+	repository    interfaces.ContactsRepository
+	entityFactory entities.Factory[T]
 }
 
-func NewContactsService[T entities.ContactEntity](repository interfaces.ContactsRepository) *ContactsService[T] {
+func NewContactsService[T entities.ContactEntity](repository interfaces.ContactsRepository, factory entities.Factory[T]) *ContactsService[T] {
 	return &ContactsService[T]{
-		repository: repository,
+		repository:    repository,
+		entityFactory: factory,
 	}
 }
 
 func (service ContactsService[T]) Validate(dto interfaces.ContactDTO) (contact T, err error) {
 	// check if the phone is valid
+	contact = service.entityFactory.New()
 	contact.SetName(dto.Name())
 	if err = contact.SetPhone(dto.Phone()); err != nil {
 		return

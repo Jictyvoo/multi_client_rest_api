@@ -28,7 +28,7 @@ func TestContactsService_Validate(t *testing.T) {
 		{
 			name: "ABZ_1 - Valid name and phone",
 			service: func(retriever remy.DependencyRetriever) services.ContactsServiceFacade {
-				return domain.NewContactsService[*xycEntities.ContactEntity](
+				return domain.NewContactsService[xycEntities.ContactEntity](
 					remy.Get[interfaces.ContactsRepository](retriever),
 				)
 			},
@@ -40,7 +40,7 @@ func TestContactsService_Validate(t *testing.T) {
 		{
 			name: "XYC_2 - Valid name and phone",
 			service: func(retriever remy.DependencyRetriever) services.ContactsServiceFacade {
-				return domain.NewContactsService[*abzEntities.ContactEntity](
+				return domain.NewContactsService[abzEntities.ContactEntity](
 					remy.Get[interfaces.ContactsRepository](retriever),
 				)
 			},
@@ -122,7 +122,7 @@ func TestContactsService_Add(t *testing.T) {
 	tempDto.EXPECT().Phone().Return(expectedPhone).AnyTimes()
 	tempDto.EXPECT().Name().Return(strings.ToLower("not THE s@m3 nUmBeR")).AnyTimes()
 
-	service := domain.NewContactsService[*xycEntities.ContactEntity](repoMock)
+	service := domain.NewContactsService[xycEntities.ContactEntity](repoMock)
 	err := service.Add([]dtos.ContactsDTO{tempDto, dtoMock})
 	if err != nil && !errors.Is(err, corerrs.ErrContactAlreadyExists) {
 		t.Error(err)

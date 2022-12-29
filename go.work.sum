@@ -1,0 +1,6 @@
+github.com/gofiber/fiber/v2 v2.34.1 h1:C6saXB7385HvtXX+XMzc5Dqj5S/aEXOfKCW7JNep4rA=
+github.com/gofiber/fiber/v2 v2.34.1/go.mod h1:ozRQfS+D7EL1+hMH+gutku0kfx1wLX4hAxDCtDzpj4U=
+github.com/google/go-cmp v0.5.8/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
+github.com/wrapped-owls/goremy-di/remy v1.2.1/go.mod h1:qYN9E07yip4Vw4oihsMq05IgLSMvFKsjrA/Ca79zq8w=
+golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2/go.mod h1:CfG3xpIq0wQ8r1q4Su4UZFWDARRcnwPjda9FqA0JpMk=
+golang.org/x/xerrors v0.0.0-20220517211312-f3a8303e98df/go.mod h1:K8+ghG5WaK9qNqU5K3HdILfMLy1f3aNYFI/wnl100a8=

@@ -1,0 +1,12 @@
+go 1.18
+
+replace (
+	github.com/gofiber/fiber/v2 => github.com/gofiber/fiber/v2 v2.34.1
+)
+
+use (
+	./server
+	./modules
+	./services/authcore
+	./services/apicontracts
+)
